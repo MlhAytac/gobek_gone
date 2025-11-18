@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gobek_gone/Pages/Loginpage.dart';
+import 'package:gobek_gone/Pages/LoginPage.dart';
+import 'package:gobek_gone/Pages/RegistrationPage.dart';
 
 class Onboardingscreen extends StatelessWidget {
 
@@ -64,7 +65,7 @@ class Onboardingscreen extends StatelessWidget {
                             SizedBox(height: 25),
                             ElevatedButton(
                                 onPressed: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Loginpage()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.green,
@@ -89,7 +90,7 @@ class Onboardingscreen extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: (){
-
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => Loginpage()));
                                   },
                                   child: Text(
                                     "  Login",

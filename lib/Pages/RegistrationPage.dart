@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gobek_gone/Pages/LoginPage.dart';
 
-class Loginpage extends StatefulWidget {
+class RegistrationPage extends StatefulWidget {
 
   @override
-  State<Loginpage> createState() => _LoginpageState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _LoginpageState extends State<Loginpage> {
+class _RegistrationPageState extends State<RegistrationPage> {
 
 
   @override
@@ -120,7 +121,7 @@ class _LoginpageState extends State<Loginpage> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              print("Login tapped");
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Loginpage()));
                             },
                             child: Text(
                               " Login",
@@ -175,6 +176,4 @@ class _LoginpageState extends State<Loginpage> {
       ),
     );
   }
-
-
 }
