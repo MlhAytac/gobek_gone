@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gobek_gone/Pages/ForgotPassword.dart';
 
 class Loginpage extends StatefulWidget {
 
@@ -103,7 +104,7 @@ class _LoginpageState extends State<Loginpage> {
                       children: [
                         GestureDetector(
                           onTap: (){
-                            print("Forgot Your Password ?");
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Forgotpassword()));
                           },
                           child: Text(
                             " Forgot Your Password ?",
