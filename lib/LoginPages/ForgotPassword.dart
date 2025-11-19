@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gobek_gone/Pages/RegistrationPage.dart';
+import 'package:gobek_gone/LoginPages/RegistrationPage.dart';
 
 class Forgotpassword extends StatefulWidget {
 

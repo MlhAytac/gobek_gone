@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gobek_gone/Pages/OnboardingScreen.dart';
+import 'package:gobek_gone/LoginPages/OnboardingScreen.dart';
 
 void main() {
   runApp(const MyApp());

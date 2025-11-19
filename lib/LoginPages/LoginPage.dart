@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gobek_gone/Pages/ForgotPassword.dart';
+import 'package:gobek_gone/LoginPages//ForgotPassword.dart';
 
 class Loginpage extends StatefulWidget {
 
