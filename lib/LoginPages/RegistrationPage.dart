@@ -24,8 +24,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
 
           // Ekranın Ana içeriği
-          SafeArea(
-              child: SingleChildScrollView(
+          Column(
+            children: [
+              SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),
                   child: Column(
@@ -135,7 +136,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 60,),
+                      SizedBox(height: 90,),
 
                       //Terms of Service ve Privacy Policy
                       // Terms of Service Tapped ve Privacy Policy tapped
@@ -217,6 +218,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
               ),
+            ],
           ),
         ],
       ),
