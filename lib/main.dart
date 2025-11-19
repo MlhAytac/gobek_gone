@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gobek_gone/General/BottomBar.dart';
 import 'package:gobek_gone/LoginPages/OnboardingScreen.dart';
 
 void main() {
