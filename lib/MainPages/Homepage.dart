@@ -1,5 +1,6 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:gobek_gone/General/AppBar.dart';
 
 // Page İçeriklerini import ediyoruz (Bu dosyanın bir seviye üstünden pages klasörüne erişiyoruz)
 import 'badges.dart';
@@ -40,10 +41,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Anasayfa'),
-        backgroundColor: Colors.blueAccent,
-      ),
+      appBar: Appbar(),
       // Gövdede, _currentIndex'e karşılık gelen sayfayı göster
       body: _pageList[_currentIndex],
       // Barın içeriği arkada görünmesi için zorunlu
