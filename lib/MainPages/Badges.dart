@@ -1,16 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gobek_gone/General/AppBar.dart';
+import 'package:gobek_gone/General/BottomBar.dart';
+import 'package:gobek_gone/General/Fab.dart';
+import 'package:gobek_gone/General/app_colors.dart';
+import 'package:gobek_gone/MainPages/AI.dart';
 import 'package:share_plus/share_plus.dart';
 
-// -----------------------------------------------------------------------------
 // 1. Veri Modeli
 // Rozetlerin yapısını tanımlayan sınıf.
-// -----------------------------------------------------------------------------
 class BadgeModel {
   final int id;
   final String name;
   final String description;
   final bool isCompleted;
-  final String iconPath; // SVG/PNG yolunu tutabilir, şimdilik IconData kullanıldı
+  final String iconPath;
 
   BadgeModel({
     required this.id,
@@ -21,10 +25,7 @@ class BadgeModel {
   });
 }
 
-// -----------------------------------------------------------------------------
 // Statik Rozet Listesi (İlk UI Taslağı İçin)
-// Gerçek uygulamada bu veriler Firestore'dan çekilecektir.
-// -----------------------------------------------------------------------------
 final List<BadgeModel> mockBadges = [
   BadgeModel(id: 1, name: "İlk Adım", description: "Uygulamaya başarıyla giriş yaptın.", isCompleted: true, iconPath: '👟'),
   BadgeModel(id: 2, name: "5K Koşucusu", description: "Toplamda 5 kilometre koşu tamamla.", isCompleted: true, iconPath: '🏃'),
@@ -34,9 +35,7 @@ final List<BadgeModel> mockBadges = [
   BadgeModel(id: 6, name: "Yapay Zeka Dostu", description: "AI'dan 10 farklı tavsiye al.", isCompleted: false, iconPath: '🧠'),
 ];
 
-// -----------------------------------------------------------------------------
 // 2. Rozetler Sayfası
-// -----------------------------------------------------------------------------
 class BadgesPage extends StatelessWidget {
   const BadgesPage({Key? key}) : super(key: key);
 
@@ -118,6 +117,9 @@ class BadgesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.main_background,
+      appBar: gobekgAppbar(),
+
       // Rozetler için ızgara görünümü
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -128,7 +130,11 @@ class BadgesPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
                 "Toplam ${mockBadges.where((b) => b.isCompleted).length} Rozet Kazandın!",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.green.shade800),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.green.shade800
+                ),
               ),
             ),
             Expanded(
@@ -154,13 +160,22 @@ class BadgesPage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: gobekgBottombar(),
+
+      floatingActionButton: buildCenterFloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => AIpage()),);
+        },
+        backgroundColor: AppColors.AI_color,
+        icon: CupertinoIcons.circle_grid_hex,
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
 
-// -----------------------------------------------------------------------------
 // 3. Rozet Izgara Öğesi Widget'ı
-// -----------------------------------------------------------------------------
 class BadgeItem extends StatelessWidget {
   final BadgeModel badge;
   const BadgeItem({Key? key, required this.badge}) : super(key: key);

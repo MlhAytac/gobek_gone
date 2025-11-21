@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gobek_gone/General/AppBar.dart';
+import 'package:gobek_gone/General/BottomBar.dart';
+import 'package:gobek_gone/General/Fab.dart';
+import 'package:gobek_gone/General/app_colors.dart';
+import 'package:gobek_gone/MainPages/AI.dart';
 
-// -----------------------------------------------------------------------------
 // 1. Veri Modeli ve Mock Veri
-// -----------------------------------------------------------------------------
 class FriendModel {
   final String id;
   final String name;
@@ -51,9 +55,7 @@ final List<FriendModel> mockMyFriends = [
 ];
 
 
-// -----------------------------------------------------------------------------
 // 2. Arkadaşlar Sayfası (Kompakt AppBar ve Tek Arama Çubuğu)
-// -----------------------------------------------------------------------------
 class FriendsPage extends StatefulWidget {
   const FriendsPage({Key? key}) : super(key: key);
 
@@ -95,62 +97,53 @@ class _FriendsPageState extends State<FriendsPage> {
     final filteredFriends = _filterFriends(mockMyFriends);
 
     return Scaffold(
-      appBar: AppBar(
-        // LOGO YOLU GÜNCELLENDİ
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Image.asset('images/logo-Photoroom.png', height: 28), // Yeni ikon yolu
-        ),
-        title: const Text(""), // Başlık metni boşaltıldı
-        centerTitle: false,
-        backgroundColor: Colors.lightGreen.shade100,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: Colors.green.shade800),
-            onPressed: () {
-              // Uygulama içi global arama fonksiyonu buraya gelecek.
-            },
-          ),
-          IconButton(
-            icon: CircleAvatar(
-              backgroundImage: NetworkImage('https://randomuser.me/api/portraits/men/8.jpg'),
-              radius: 14, // Daha küçük profil fotoğrafı
-            ),
-            onPressed: () {
-              // Kullanıcı profili sayfasına geçiş
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.menu, color: Colors.green.shade800),
-            onPressed: () {
-              // Side Bar açma eylemi (İçerik butonu ile aynı işlevi görebilir)
-            },
-          ),
-        ],
-        // Arama Çubuğu
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60.0),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: "Arkadaş Ara...",
-                prefixIcon: Icon(Icons.search, color: Colors.blueGrey.shade400),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      backgroundColor: AppColors.main_background,
+      appBar: gobekgAppbar(),
+
+      body: Column(
+        children: [
+          Padding(
+              padding: const EdgeInsets.all(12.0),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.shadow_color,
+                    blurRadius: 6,
+                    offset: Offset(0, 3),
+                  )
+                ],
+              ),
+              child: TextField(
+                controller: _searchController,
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.search, color: Colors.grey,),
+                    hintText: "Find my friend...",
+                    border: InputBorder.none,
+                  ),
               ),
             ),
           ),
-        ),
+          Expanded(
+              child: _buildFriendList(filteredFriends),
+          ),
+        ],
       ),
-      body: _buildFriendList(filteredFriends),
+
+      bottomNavigationBar: gobekgBottombar(),
+
+      floatingActionButton: buildCenterFloatingActionButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (_) => AIpage()),);
+        },
+        backgroundColor: AppColors.AI_color,
+        icon: CupertinoIcons.circle_grid_hex,
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
@@ -161,7 +154,7 @@ class _FriendsPageState extends State<FriendsPage> {
         child: Text(
           "Aradığınız kriterde arkadaşınız bulunamadı.",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+          style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
         ),
       );
     }
@@ -170,7 +163,7 @@ class _FriendsPageState extends State<FriendsPage> {
         child: Text(
           "Henüz hiç arkadaşın yok. Yeni arkadaşlar eklemeye ne dersin?",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+          style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
         ),
       );
     }
