@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gobek_gone/General/AppBar.dart';
 import 'package:gobek_gone/General/app_colors.dart';
+import 'package:gobek_gone/MainPages/AI.dart';
+import 'package:gobek_gone/MainPages/Badges.dart';
+import 'package:gobek_gone/MainPages/Friends.dart';
+import 'package:gobek_gone/MainPages/Homepage.dart';
+
 
 
 class gobekgBottombar extends StatefulWidget {
@@ -22,11 +27,40 @@ class _gobekgBottombarState extends State<gobekgBottombar> {
     Placeholder(),
     Placeholder(),
   ];
-  void _onItemTapped(int index){
+
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+
+    switch (index) {
+      case 0:
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => Homepage()));
+        break;
+
+      case 1:
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => BadgesPage()));
+        break;
+
+      case 3:
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => FriendsPage()));
+        break;
+
+      case 4:
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => AIpage()));
+        break;
+    }
   }
+
+
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -42,7 +76,7 @@ class _gobekgBottombarState extends State<gobekgBottombar> {
               buildNavBarItem(CupertinoIcons.checkmark_seal_fill, 'Badges', 1),
               SizedBox(width: 35,),
               buildNavBarItem(CupertinoIcons.person_3_fill, 'Friends', 3),
-              buildNavBarItem(CupertinoIcons.list_bullet, 'Badges', 4),
+              buildNavBarItem(CupertinoIcons.list_bullet, 'Context', 5),
             ],
           ),
         ),

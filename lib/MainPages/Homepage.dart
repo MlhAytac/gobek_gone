@@ -4,6 +4,9 @@ import 'package:gobek_gone/General/AppBar.dart';
 import 'package:gobek_gone/General/BottomBar.dart';
 import 'package:gobek_gone/General/Fab.dart';
 import 'package:gobek_gone/General/app_colors.dart';
+import 'package:gobek_gone/MainPages/AI.dart';
+import 'package:gobek_gone/MainPages/Badges.dart';
+import 'package:gobek_gone/MainPages/Friends.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -14,6 +17,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+
   int _selectedIndex = 0;
 
   static final List<Widget> _screens = [
@@ -30,6 +34,7 @@ class _HomepageState extends State<Homepage> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +46,10 @@ class _HomepageState extends State<Homepage> {
       bottomNavigationBar: gobekgBottombar(),
 
       floatingActionButton: buildCenterFloatingActionButton(
-        onPressed: () => _onItemTapped(2),
-        backgroundColor: const Color(0xFFC0E0DD),
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (_) => AIpage()),);
+        },
+        backgroundColor: AppColors.AI_color,
         icon: CupertinoIcons.circle_grid_hex,
       ),
 
