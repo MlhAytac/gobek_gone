@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gobek_gone/General/AppBar.dart';
-import 'package:gobek_gone/General/BottomBar.dart';
-import 'package:gobek_gone/General/Fab.dart';
 import 'package:gobek_gone/General/app_colors.dart';
-import 'package:gobek_gone/MainPages/AI.dart';
+
 
 // 1. Veri Modeli ve Mock Veri
 class FriendModel {
