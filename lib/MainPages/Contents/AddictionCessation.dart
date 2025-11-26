@@ -1,14 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gobek_gone/General/AppBar.dart';
-import 'package:gobek_gone/General/BottomBar.dart';
-import 'package:gobek_gone/General/Fab.dart';
 import 'package:gobek_gone/General/app_colors.dart';
-import 'package:gobek_gone/MainPages/AI.dart';
-import 'package:gobek_gone/MainPages/Badges.dart';
-import 'package:gobek_gone/MainPages/ContentPage.dart';
-import 'package:gobek_gone/MainPages/Friends.dart';
-import 'package:gobek_gone/MainPages/HomeContent.dart';
 
 
 class AddictioncessationScreen extends StatefulWidget {
@@ -46,37 +39,6 @@ class _AddictioncessationScreenState extends State<AddictioncessationScreen> {
     });
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    Widget nextScreen;
-
-    switch (index) {
-      case 0:
-        nextScreen = Homecontent();
-        break;
-      case 1:
-        nextScreen = BadgesPage();
-        break;
-      case 2:
-        nextScreen = AIpage();
-        break;
-      case 3:
-        nextScreen = FriendsPage();
-        break;
-      case 4:
-        nextScreen = ContentPage();
-        break;
-      default:
-        nextScreen = Homecontent();
-    }
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => nextScreen),
-    );
-  }
 
 
 
@@ -118,7 +80,7 @@ class _AddictioncessationScreenState extends State<AddictioncessationScreen> {
               mainAxisSpacing: 15.0,
               children: [
                 _buildToolCard(context, Icons.self_improvement, "Breathing Exercise", Colors.green),
-                _buildToolCard(context, Icons.phone, "Acil Destek", Colors.red),
+                _buildToolCard(context, Icons.phone, "Emergency Support", Colors.red),
               ],
             ),
 
@@ -140,18 +102,7 @@ class _AddictioncessationScreenState extends State<AddictioncessationScreen> {
         ),
       ),
 
-      bottomNavigationBar: gobekgBottombar(
-          selectedIndex: _selectedIndex,
-          onItemTapped: _onItemTapped,
-      ),
-      floatingActionButton: buildCenterFloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => AIpage()));
-        },
-        backgroundColor: AppColors.AI_color,
-        icon: CupertinoIcons.circle_grid_hex,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
 
     );
   }
@@ -257,7 +208,7 @@ class _AddictioncessationScreenState extends State<AddictioncessationScreen> {
           if (title == "Breathing Exercise") {
             _showBreathingDialog(context);
           }
-          else if (title == "Acil Destek") {
+          else if (title == "Emergency Support") {
             _showEmergencyDialog(context);
           }
         },
@@ -348,7 +299,7 @@ class _AddictioncessationScreenState extends State<AddictioncessationScreen> {
                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
                 ),
                 Text(
-                  '121',
+                  'Call: 112',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red),
                 ),
                 SizedBox(height: 20),

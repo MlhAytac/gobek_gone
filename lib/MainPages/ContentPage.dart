@@ -1,20 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gobek_gone/General/AppBar.dart';
-import 'package:gobek_gone/General/BottomBar.dart';
-import 'package:gobek_gone/General/Fab.dart';
 import 'package:gobek_gone/General/app_colors.dart';
-import 'package:gobek_gone/MainPages/AI.dart';
-import 'package:gobek_gone/MainPages/Badges.dart';
 import 'package:gobek_gone/MainPages/Contents/ActivitylistPage.dart';
 import 'package:gobek_gone/MainPages/Contents/AddictionCessation.dart';
 import 'package:gobek_gone/MainPages/Contents/BMI.dart';
 import 'package:gobek_gone/MainPages/Contents/DietList.dart';
 import 'package:gobek_gone/MainPages/Contents/ProgressTracking.dart';
 import 'package:gobek_gone/MainPages/Contents/Tasks.dart';
-import 'package:gobek_gone/MainPages/Friends.dart';
-import 'package:gobek_gone/MainPages/HomeContent.dart';
-
 
 class HomeCardItem {
   final String title;
@@ -44,44 +36,13 @@ class _ContentPageState extends State<ContentPage> {
     HomeCardItem(title: "Addiction Cessation", icon: Icons.nature_people, targetPage: AddictioncessationScreen()),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
 
-    Widget nextScreen;
-    switch (index) {
-      case 0:
-        nextScreen = Homecontent();
-        break;
-      case 1:
-        nextScreen = BadgesPage();
-        break;
-      case 2:
-        nextScreen = AIpage();
-        break;
-      case 3:
-        nextScreen = FriendsPage();
-        break;
-      case 4:
-        nextScreen = ContentPage();
-        break;
-      default:
-        nextScreen = Homecontent();
-    }
-    if (index != 4) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => nextScreen),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.main_background,
-      appBar: gobekgAppbar(),
+
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: GridView.count(
@@ -93,18 +54,8 @@ class _ContentPageState extends State<ContentPage> {
           }).toList(),
         ),
       ),
-      bottomNavigationBar: gobekgBottombar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
-      floatingActionButton: buildCenterFloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => AIpage()));
-        },
-        backgroundColor: AppColors.AI_color,
-        icon: CupertinoIcons.circle_grid_hex,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+
     );
   }
 

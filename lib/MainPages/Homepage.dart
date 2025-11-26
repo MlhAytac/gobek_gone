@@ -19,7 +19,6 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
 
   int _selectedIndex = 0;
-  // bool _isSidebarOpen = false; // Sidebar kullanılmadığı için bu değişkene artık gerek yok.
 
   static final List<Widget> _screens = [
     Homecontent(),
@@ -29,25 +28,10 @@ class _HomepageState extends State<Homepage> {
     ContentPage(),
   ];
 
-  // Sidebar'ı açıp kapayan metoda artık gerek yok.
-  /*
-  void _toggleSidebar() {
-    setState(() {
-      _isSidebarOpen = !_isSidebarOpen;
-    });
-  }
-  */
-
   // Tüm indeksler için sayfa geçişi yapacak şekilde güncellendi
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      // Sidebar kapama mantığına da artık gerek yok.
-      /*
-      if (_isSidebarOpen) {
-        _isSidebarOpen = false;
-      }
-      */
     });
   }
 
@@ -55,7 +39,6 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.main_background,
-      //extendBodyBehindAppBar: true,
 
       // Body kısmı Stack yerine daha sade bir yapıya dönüştürüldü.
       body: Column(
