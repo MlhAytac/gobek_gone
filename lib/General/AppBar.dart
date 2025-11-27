@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gobek_gone/General/UsersSideBar.dart';
 import 'package:gobek_gone/General/app_colors.dart';
 
 
@@ -119,8 +120,8 @@ class _gobekgAppbarState extends State<gobekgAppbar> {
     size: 30,
     ),
     onPressed: (){
-    // KUllanıcı profil sayfasına gidiş
-    },
+      Scaffold.of(context).openEndDrawer();
+    }
     ),
     ),
     ];

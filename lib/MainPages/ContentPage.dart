@@ -38,9 +38,9 @@ class _ContentPageState extends State<ContentPage> {
   // 2. Kart Verilerini Tanımlama
   final List<HomeCardItem> cardItems = [
     HomeCardItem(title: "Body Mass Index", icon: Icons.monitor_weight, targetPage: BMICalculatorPage()),
-    HomeCardItem(title: "Progress Tracking", icon: Icons.timeline, targetPage: ProgresstrackingPage()),
-    HomeCardItem(title: "Tasks", icon: Icons.checklist, targetPage: TasksPage()),
-    HomeCardItem(title: "Diet List", icon: Icons.restaurant, targetPage: DietlistPage()),
+    HomeCardItem(title: "Progress Tracking", icon: Icons.timeline, targetPage: ProgressTracking()),
+    HomeCardItem(title: "Tasks", icon: Icons.checklist, targetPage: Tasks()),
+    HomeCardItem(title: "Diet List", icon: Icons.restaurant, targetPage: DietList()),
     HomeCardItem(title: "Exercises", icon: Icons.directions_run, targetPage: ActivitylistPage()),
     HomeCardItem(title: "Addiction Cessation", icon: Icons.nature_people, targetPage: AddictioncessationScreen()),
   ];
