@@ -1,7 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gobek_gone/General/app_colors.dart';
+import 'package:gobek_gone/General/AppBar.dart';
 
+// ----- YEREL RENK SİMÜLASYONU (AppColors yerine) -----
+class AppColors {
+  static const Color AI_color = Color(0xFF4DB6AC); // Toggle seçili rengi (Teal)
+  static const Color shadow_color = Color(0x33000000); // Gölge rengi
+  static const Color main_background = Color(0xFFF5F5F5);
+}
+// --------------------------------------------------
 
 // 1. Veri Modeli ve Mock Veri
 class FriendModel {
@@ -21,34 +27,10 @@ class FriendModel {
 }
 
 final List<FriendModel> mockMyFriends = [
-  FriendModel(
-    id: 'user1',
-    name: "Ahmet Yılmaz",
-    avatarUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
-    level: "143",
-    steps: 1924,
-  ),
-  FriendModel(
-    id: 'user2',
-    name: "Ayşe Can",
-    avatarUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
-    level: "149",
-    steps: 1924,
-  ),
-  FriendModel(
-    id: 'user3',
-    name: "Mehmet Kaya",
-    avatarUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
-    level: "145",
-    steps: 1924,
-  ),
-  FriendModel(
-    id: 'user4',
-    name: "Zeynep Demir",
-    avatarUrl: 'https://randomuser.me/api/portraits/women/4.jpg',
-    level: "150",
-    steps: 2100,
-  ),
+  FriendModel(id: 'user1', name: "Ahmet Yılmaz", avatarUrl: 'https://randomuser.me/api/portraits/men/1.jpg', level: "143", steps: 1924),
+  FriendModel(id: 'user2', name: "Ayşe Can", avatarUrl: 'https://randomuser.me/api/portraits/women/2.jpg', level: "149", steps: 3500),
+  FriendModel(id: 'user3', name: "Mehmet Kaya", avatarUrl: 'https://randomuser.me/api/portraits/men/3.jpg', level: "145", steps: 2800),
+  FriendModel(id: 'user4', name: "Zeynep Demir", avatarUrl: 'https://randomuser.me/api/portraits/women/4.jpg', level: "150", steps: 2100),
 ];
 
 
@@ -63,6 +45,9 @@ class FriendsPage extends StatefulWidget {
 class _FriendsPageState extends State<FriendsPage> {
   final TextEditingController _searchController = TextEditingController();
   String _searchText = '';
+
+  // HATA ALDIĞINIZ DEĞİŞKEN BURADA TANIMLI
+  bool isHomeSelected = true;
 
   @override
   void initState() {
@@ -89,16 +74,90 @@ class _FriendsPageState extends State<FriendsPage> {
         .toList();
   }
 
+  // -----------------------------------------------------------------------------
+  // HATA DÜZELTME: isHomeSelected ve setState kullanan metodlar buraya taşındı
+  // -----------------------------------------------------------------------------
+
+  // 1. Konum Kutularını Oluşturma Metodu
+  Widget _buildLocationToggle() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.all(4.0),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Row(
+        children: [
+
+          // Evde butonu (home: true) - Seçili iken: Arkadaşlarım
+          _buildToggleButton("Arkadaşlarım 🫂", true),
+          // Spor Salonunda butonu (home: false) - Seçili iken: Arkadaş Ara
+          _buildToggleButton("Arkadaş Ara 🔍", false),
+        ],
+      ),
+    );
+  }
+
+  // 2. Tek bir butonu oluşturan ve setState() kullanan metot
+  Widget _buildToggleButton(String label, bool home) {
+    // isHomeSelected'a erişim, sınıfın üyesi olduğu için doğrudur
+    bool selected = isHomeSelected == home;
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          // setState() kullanımı, State sınıfı içinde olduğu için doğrudur
+          setState(() => isHomeSelected = home);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            color: selected ? AppColors.AI_color : Colors.transparent,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                color: selected ? Colors.white : Colors.black54,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
-    final filteredFriends = _filterFriends(mockMyFriends);
+    // isHomeSelected true ise arkadaş listesi, false ise arama sonuçları gösterilir.
+    final List<FriendModel> displayList = isHomeSelected ? _filterFriends(mockMyFriends) : [];
 
-      return Column(
+    return Scaffold( // Sayfanın tam görünmesi için Scaffold ekledim
+      backgroundColor: AppColors.main_background,
+      body: Column(
         children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: gobekgAppbar(),
+          ),
+          // 1. Konum Seçme Butonları
           Padding(
-              padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: _buildLocationToggle(),
+          ),
+
+          // 2. Arama Çubuğu (Her iki modda da görünebilir, ancak listeye göre filtreler)
+          Padding(
+            padding: const EdgeInsets.all(15.0),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
@@ -106,46 +165,54 @@ class _FriendsPageState extends State<FriendsPage> {
                   BoxShadow(
                     color: AppColors.shadow_color,
                     blurRadius: 6,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   )
                 ],
               ),
               child: TextField(
                 controller: _searchController,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.search, color: Colors.grey,),
-                    hintText: "Find my friend...",
-                    border: InputBorder.none,
-                  ),
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.search, color: Colors.grey,),
+                  hintText: "Arkadaş ara...",
+                  border: InputBorder.none,
+                ),
               ),
             ),
           ),
+
+          // 3. İçerik (isHomeSelected'a göre dinamik)
           Expanded(
-              child: SingleChildScrollView(
-                child: _buildFriendList(filteredFriends),
-              ),
+            child: SingleChildScrollView(
+              child: isHomeSelected
+                  ? _buildFriendList(displayList) // Arkadaşlarım listesi
+                  : _buildFindFriendContent(),    // Arkadaş Ara ekranı
+            ),
           ),
         ],
-      );
+      ),
+    );
   }
 
-  // ... (Geri kalan metodlar)
+  // Arkadaş Listesi (isHomeSelected == true iken gösterilir)
   Widget _buildFriendList(List<FriendModel> friends) {
     if (friends.isEmpty && _searchText.isNotEmpty) {
       return Center(
         child: Text(
           "Aradığınız kriterde arkadaşınız bulunamadı.",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+          style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
         ),
       );
     }
     if (friends.isEmpty && _searchText.isEmpty) {
       return Center(
-        child: Text(
-          "Henüz hiç arkadaşın yok. Yeni arkadaşlar eklemeye ne dersin?",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(
+            "Henüz hiç arkadaşın yok. Yeni arkadaşlar eklemeye ne dersin?",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+          ),
         ),
       );
     }
@@ -160,16 +227,45 @@ class _FriendsPageState extends State<FriendsPage> {
         return FriendCard(
           friend: friend,
           onMessage: () {
-
+            // Mesaj gönderme eylemi
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("${friend.name} kişisine mesaj gönderiliyor...")),
+            );
           },
         );
       },
     );
   }
+
+  // Arkadaş Ara İçeriği (isHomeSelected == false iken gösterilir)
+  Widget _buildFindFriendContent() {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.all(30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.person_add_alt_1, size: 80, color: Colors.teal),
+            SizedBox(height: 20),
+            Text(
+              "Arkadaşını Davet Et",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.teal),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Arkadaşının kullanıcı adını yukarıdaki arama kutusuna yazarak bulabilir veya onları uygulamaya davet edebilirsin.",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 // -----------------------------------------------------------------------------
-// 3. Her Bir Arkadaşı Temsil Eden Kart Widget'ı (Sadece Mesaj Gönder Butonlu)
+// 3. Her Bir Arkadaşı Temsil Eden Kart Widget'ı
 // -----------------------------------------------------------------------------
 class FriendCard extends StatelessWidget {
   final FriendModel friend;

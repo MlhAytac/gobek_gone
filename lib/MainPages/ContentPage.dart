@@ -1,12 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gobek_gone/General/AppBar.dart';
+import 'package:gobek_gone/General/BottomBar.dart';
+import 'package:gobek_gone/General/Fab.dart';
 import 'package:gobek_gone/General/app_colors.dart';
-import 'package:gobek_gone/MainPages/Contents/ActivitylistPage.dart';
+import 'package:gobek_gone/MainPages/AI.dart';
+import 'package:gobek_gone/MainPages/Badges.dart';
+import 'package:gobek_gone/MainPages/Contents/ActivitylistPage.dart' hide AppColors;
 import 'package:gobek_gone/MainPages/Contents/AddictionCessation.dart';
 import 'package:gobek_gone/MainPages/Contents/BMI.dart';
 import 'package:gobek_gone/MainPages/Contents/DietList.dart';
 import 'package:gobek_gone/MainPages/Contents/ProgressTracking.dart';
 import 'package:gobek_gone/MainPages/Contents/Tasks.dart';
+import 'package:gobek_gone/MainPages/Friends.dart' hide AppColors;
+import 'package:gobek_gone/MainPages/HomeContent.dart';
 
 class HomeCardItem {
   final String title;
@@ -19,16 +26,18 @@ class HomeCardItem {
 // ContentPage sınıfı
 class ContentPage extends StatefulWidget {
 
+
   @override
   State<ContentPage> createState() => _ContentPageState();
 }
 
 class _ContentPageState extends State<ContentPage> {
+
   int _selectedIndex = 4;
 
   // 2. Kart Verilerini Tanımlama
   final List<HomeCardItem> cardItems = [
-    HomeCardItem(title: "Body Mass Index", icon: Icons.monitor_weight, targetPage: BodyPage()),
+    HomeCardItem(title: "Body Mass Index", icon: Icons.monitor_weight, targetPage: BMICalculatorPage()),
     HomeCardItem(title: "Progress Tracking", icon: Icons.timeline, targetPage: ProgresstrackingPage()),
     HomeCardItem(title: "Tasks", icon: Icons.checklist, targetPage: TasksPage()),
     HomeCardItem(title: "Diet List", icon: Icons.restaurant, targetPage: DietlistPage()),
@@ -41,6 +50,7 @@ class _ContentPageState extends State<ContentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: gobekgAppbar(),
       backgroundColor: AppColors.main_background,
 
       body: Padding(
@@ -54,7 +64,6 @@ class _ContentPageState extends State<ContentPage> {
           }).toList(),
         ),
       ),
-
 
     );
   }

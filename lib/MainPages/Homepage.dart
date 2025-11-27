@@ -7,7 +7,7 @@ import 'package:gobek_gone/General/app_colors.dart';
 import 'package:gobek_gone/MainPages/AI.dart';
 import 'package:gobek_gone/MainPages/Badges.dart';
 import 'package:gobek_gone/MainPages/ContentPage.dart';
-import 'package:gobek_gone/MainPages/Friends.dart';
+import 'package:gobek_gone/MainPages/Friends.dart' hide AppColors;
 import 'package:gobek_gone/MainPages/HomeContent.dart';
 
 class Homepage extends StatefulWidget {
@@ -44,7 +44,7 @@ class _HomepageState extends State<Homepage> {
       body: Column(
         children: [
           // AppBar'ı direkt olarak Column'ın en üstüne yerleştiriyoruz
-          gobekgAppbar(),
+          //gobekgAppbar(),
 
           // Geri kalan alanı genişletilmiş bir şekilde mevcut sayfa kaplayacak
           Expanded(

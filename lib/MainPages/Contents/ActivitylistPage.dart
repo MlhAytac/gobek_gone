@@ -4,9 +4,10 @@ import 'package:gobek_gone/General/AppBar.dart';
 import 'package:gobek_gone/General/BottomBar.dart';
 import 'package:gobek_gone/General/Fab.dart';
 import 'package:gobek_gone/General/app_colors.dart';
+import 'package:gobek_gone/General/contentBar.dart';
 import 'package:gobek_gone/MainPages/AI.dart';
 import 'package:gobek_gone/MainPages/Badges.dart';
-import 'package:gobek_gone/MainPages/Friends.dart';
+import 'package:gobek_gone/MainPages/Friends.dart' hide AppColors;
 import 'package:gobek_gone/MainPages/Homepage.dart';
 
 class ActivitylistPage extends StatefulWidget {
@@ -122,7 +123,7 @@ class _ActivitylistPageState extends State<ActivitylistPage> {
     final filteredExercises = allExercises.where((exercise) {
       final matchesLocation = exercise["isHome"] == isHomeSelected;
       final matchesMuscleGroup =
-          selectedMuscleGroup == "Tüm Vücut" ||
+          selectedMuscleGroup == "All Body" ||
               exercise["muscleGroup"] == selectedMuscleGroup;
       return matchesLocation && matchesMuscleGroup;
     }).toList();
@@ -146,7 +147,7 @@ class _ActivitylistPageState extends State<ActivitylistPage> {
                   child: filteredExercises.isEmpty
                       ? Center(
                     child: Text(
-                      "Bu filtreye uygun egzersiz bulunamadı",
+                      "No exercises matching this filter were found.",
                       style: TextStyle(fontSize: 16),
                     ),
                   )
@@ -165,7 +166,7 @@ class _ActivitylistPageState extends State<ActivitylistPage> {
             top: 0,
             left: 0,
             right: 0,
-            child: gobekgAppbar(),
+            child: contentBar(),
           ),
 
           if (_isSidebarOpen)
@@ -175,18 +176,6 @@ class _ActivitylistPageState extends State<ActivitylistPage> {
             ),
         ],
       ),
-      bottomNavigationBar: gobekgBottombar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
-      floatingActionButton: buildCenterFloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => AIpage()));
-        },
-        backgroundColor: AppColors.AI_color,
-        icon: CupertinoIcons.circle_grid_hex,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
@@ -200,8 +189,8 @@ class _ActivitylistPageState extends State<ActivitylistPage> {
       ),
       child: Row(
         children: [
-          _buildToggleButton("Evde 🏡", true),
-          _buildToggleButton("Spor Salonunda 🏛️", false),
+          _buildToggleButton("Home 🏡", true),
+          _buildToggleButton("GYM 🏛️", false),
         ],
       ),
     );

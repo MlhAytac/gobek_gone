@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gobek_gone/General/AppBar.dart';
 import 'package:gobek_gone/General/app_colors.dart';
+import 'package:gobek_gone/General/contentBar.dart';
 import 'package:gobek_gone/MainPages/AI.dart';
 import 'package:gobek_gone/MainPages/Badges.dart';
-import 'package:gobek_gone/MainPages/Friends.dart';
+import 'package:gobek_gone/MainPages/Friends.dart' hide AppColors;
 import 'package:gobek_gone/MainPages/HomeContent.dart';
 
 class DietlistPage extends StatefulWidget {
@@ -45,7 +46,7 @@ class _DietlistPageState extends State<DietlistPage> {
             top: 0,
             left: 0,
             right: 0,
-            child: gobekgAppbar(),
+            child: contentBar(),
           ),
         ],
       ),
