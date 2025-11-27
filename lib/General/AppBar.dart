@@ -44,24 +44,24 @@ class _gobekgAppbarState extends State<gobekgAppbar> {
 
   Widget _buildLogo(){
     return Padding(
-      padding: const EdgeInsets.all(5),
-      child: Container(
-        width: 90,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.shadow_color,
-              blurRadius: 55,
-            ),
-          ],
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-          image: const DecorationImage(
+        padding: const EdgeInsets.all(5),
+        child: Container(
+          width: 90,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.shadow_color,
+                blurRadius: 55,
+              ),
+            ],
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+            image: const DecorationImage(
               image: AssetImage('images/logo-Photoroom.png'),
               fit: BoxFit.cover,
+            ),
           ),
-        ),
-      )
+        )
     );
   }
 
@@ -100,31 +100,29 @@ class _gobekgAppbarState extends State<gobekgAppbar> {
 
   List<Widget> _buildActions(){
     return [
-      IconButton(
-        icon: Icon(
-          _isSearching ? Icons.close : Icons.search,
-          color: Colors.black54,
-          size: 28,
-        ),
-        onPressed: _toogleSearch,
+    IconButton(
+      icon: Icon(
+        _isSearching ? Icons.close : Icons.search,
+        color: Colors.black54,
+        size: 28,
       ),
+      onPressed: _toogleSearch,
+    ),
 
-      if(! _isSearching)
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: IconButton(
-            icon: const Icon(
-              Icons.person,
-              color: Colors.black54,
-              size: 30,
-            ),
-            onPressed: (){
-              // KUllanıcı profil sayfasına gidiş
-            },
-          ),
-        ),
+    if(! _isSearching)
+    Padding(
+    padding: const EdgeInsets.only(right: 8.0),
+    child: IconButton(
+    icon: const Icon(
+    Icons.person,
+    color: Colors.black54,
+    size: 30,
+    ),
+    onPressed: (){
+    // KUllanıcı profil sayfasına gidiş
+    },
+    ),
+    ),
     ];
   }
 }
-
-

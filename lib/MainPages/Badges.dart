@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gobek_gone/General/AppBar.dart';
+import 'package:gobek_gone/General/app_colors.dart';
 import 'package:share_plus/share_plus.dart';
 
 // 1. Veri Modeli
@@ -22,12 +24,12 @@ class BadgeModel {
 
 // Statik Rozet Listesi (İlk UI Taslağı İçin)
 final List<BadgeModel> mockBadges = [
-  BadgeModel(id: 1, name: "İlk Adım", description: "Uygulamaya başarıyla giriş yaptın.", isCompleted: true, iconPath: '👟'),
-  BadgeModel(id: 2, name: "5K Koşucusu", description: "Toplamda 5 kilometre koşu tamamla.", isCompleted: true, iconPath: '🏃'),
-  BadgeModel(id: 3, name: "Su Uzmanı", description: "7 gün boyunca günlük su hedefini tamamla.", isCompleted: false, iconPath: '💧'),
-  BadgeModel(id: 4, name: "Egzersiz Zinciri", description: "14 gün aralıksız egzersiz yap.", isCompleted: false, iconPath: '💪'),
-  BadgeModel(id: 5, name: "Göbek Savaşçısı", description: "İlk 5 kiloyu ver.", isCompleted: true, iconPath: '🔥'),
-  BadgeModel(id: 6, name: "Yapay Zeka Dostu", description: "AI'dan 10 farklı tavsiye al.", isCompleted: false, iconPath: '🧠'),
+  BadgeModel(id: 1, name: "First Step", description: "You have successfully logged into the application.", isCompleted: true, iconPath: '👟'),
+  BadgeModel(id: 2, name: "5K Runner", description: "Complete a total of 5 kilometers of running.", isCompleted: true, iconPath: '🏃'),
+  BadgeModel(id: 3, name: "Water Specialist", description: "Complete your daily water goal for 7 days.", isCompleted: false, iconPath: '💧'),
+  BadgeModel(id: 4, name: "Exercise Chain", description: "Exercise for 14 days straight.", isCompleted: false, iconPath: '💪'),
+  BadgeModel(id: 5, name: "Belly Warrior", description: "Lose the first 5 pounds.", isCompleted: true, iconPath: '🔥'),
+  BadgeModel(id: 6, name: "AI-Friednly", description: "Get 10 different recommendations from AI.", isCompleted: false, iconPath: '🧠'),
 ];
 
 // 2. Rozetler Sayfası
@@ -37,11 +39,11 @@ class BadgesPage extends StatelessWidget {
   // Sosyal Medya Paylaşım Fonksiyonu
   void _shareBadge(BuildContext context, BadgeModel badge) async {
     final String text = badge.isCompleted
-        ? "Harika! Göbek Gone'da '${badge.name}' rozetini kazandım: ${badge.description}. Hadi sen de bu sağlıklı yaşam yolculuğuna katıl!"
-        : "Bu rozeti kazanmak için çalışıyorum: ${badge.name}! Göbek Gone ile hedeflerime yürüyorum.";
+        ? "Great! I earned the'${badge.name}' badge on Göbek Gone: ${badge.description}. Come join this healthy living journey!"
+        : "I'm working to earn this badge: ${badge.name}! I'm walking toward my goals with Göbek Gone.";
 
     // Paylaşım paketini kullanarak metni paylaşıyoruz.
-    await Share.share(text, subject: 'Göbek Gone Rozet Başarısı');
+    await Share.share(text, subject: 'Göbek Gone Badge Succes');
   }
 
   // Rozet Detay Modalını Gösteren Fonksiyon
@@ -51,58 +53,62 @@ class BadgesPage extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+        return SizedBox(
+          height: 325,
+          width: 375,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.main_background,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
-          ),
-          padding: EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                badge.iconPath, // Rozet ikonu (emoji kullandık)
-                style: TextStyle(fontSize: 80),
-              ),
-              SizedBox(height: 10),
-              Text(
-                badge.name,
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green.shade800),
-              ),
-              SizedBox(height: 15),
-              Text(
-                badge.description,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
-              ),
-              SizedBox(height: 25),
-              badge.isCompleted
-                  ? ElevatedButton.icon(
-                onPressed: () => _shareBadge(context, badge),
-                icon: Icon(Icons.share, size: 20),
-                label: Text("Başarımı Paylaş"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.lightGreen.shade400,
-                  foregroundColor: Colors.white,
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                  elevation: 5,
+            //padding: EdgeInsets.all(100),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  badge.iconPath, // Rozet ikonu (emoji kullandık)
+                  style: TextStyle(fontSize: 80),
                 ),
-              )
-                  : Chip(
-                  label: Text("Henüz Tamamlanmadı"),
-                  backgroundColor: Colors.red.shade50,
-                  labelStyle: TextStyle(color: Colors.red.shade700)),
-              SizedBox(height: 10),
-            ],
+                SizedBox(height: 10),
+                Text(
+                  badge.name,
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green.shade800),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  badge.description,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+                ),
+                SizedBox(height: 25),
+                badge.isCompleted
+                    ? ElevatedButton.icon(
+                  onPressed: () => _shareBadge(context, badge),
+                  icon: Icon(Icons.share, size: 20),
+                  label: Text("Share My Success"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightGreen.shade400,
+                    foregroundColor: Colors.white,
+                    padding:
+                    EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    elevation: 5,
+                  ),
+                )
+                    : Chip(
+                    label: Text("Not yet completed"),
+                    backgroundColor: Colors.red.shade50,
+                    labelStyle: TextStyle(color: Colors.red.shade700)),
+                SizedBox(height: 10),
+              ],
+            ),
           ),
         );
       },
@@ -110,9 +116,12 @@ class BadgesPage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-      // Rozetler için ızgara görünümü
-      return SingleChildScrollView(
+  Widget build(BuildContext context) { // <-- Sadece tek bir build metodu olmalı
+    return Scaffold(
+      appBar: gobekgAppbar(), // AppBar eklendi
+
+      // Rozetler için ızgara görünümü Scafold'un body'si oldu
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -120,12 +129,14 @@ class BadgesPage extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text(
-                  "Toplam ${mockBadges.where((b) => b.isCompleted).length} Rozet Kazandın!",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.green.shade800
+                child: Center(
+                  child: Text(
+                    "Total: ${mockBadges.where((b) => b.isCompleted).length} You've earned a badge!",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.green.shade800
+                    ),
                   ),
                 ),
               ),
@@ -143,7 +154,7 @@ class BadgesPage extends StatelessWidget {
                   final badge = mockBadges[index];
                   // Rozet öğesini oluştur
                   return InkWell(
-                    onTap: () => _showBadgeDetail(context, badge),
+                    onTap: () => _showBadgeDetail(context, badge), // Hata veren kısım şimdi doğru bağlamda
                     borderRadius: BorderRadius.circular(16),
                     child: BadgeItem(badge: badge),
                   );
@@ -152,10 +163,10 @@ class BadgesPage extends StatelessWidget {
             ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
-
 // 3. Rozet Izgara Öğesi Widget'ı
 class BadgeItem extends StatelessWidget {
   final BadgeModel badge;
@@ -219,7 +230,7 @@ class BadgeItem extends StatelessWidget {
             SizedBox(height: 4),
             // Tamamlanma Durumu Metni
             Text(
-              badge.isCompleted ? "Kazanıldı" : "Kilitli",
+              badge.isCompleted ? "Won" : "Locked",
               style: TextStyle(
                 fontSize: 12,
                 color: textColor.withOpacity(0.8),

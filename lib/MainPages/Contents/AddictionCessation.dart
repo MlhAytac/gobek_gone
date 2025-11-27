@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gobek_gone/General/AppBar.dart';
 import 'package:gobek_gone/General/app_colors.dart';
+import 'package:gobek_gone/General/contentBar.dart';
 
 
 class AddictioncessationScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class _AddictioncessationScreenState extends State<AddictioncessationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.main_background,
-      appBar: gobekgAppbar(),
+      appBar: contentBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
